@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bella Vista - Authentic Italian Restaurant</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Custom Styles -->
+    <style>
+        :root {
+            --primary: #c41e3a;
+            --primary-dark: #9a162e;
+            --secondary: #d4af37;
+            --accent: #2a6e3f;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .font-display {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .hero-bg {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        
+        .menu-category-bg {
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&auto=format&fit=crop&w=1981&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .reservation-bg {
+            background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .food-img {
+            height: 220px;
+            object-fit: cover;
+            width: 100%;
+        }
+        
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .sticky-nav.scrolled {
+            background-color: rgba(0, 0, 0, 0.95);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--primary);
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .rating-star {
+            color: #fbbf24;
+        }
+        
+        .menu-tab.active {
+            background-color: var(--primary);
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header & Navigation -->
+    <header class="sticky-nav bg-transparent text-white">
+        <div class="container mx-auto px-4">
+            <nav class="flex justify-between items-center py-4">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center">
+                        <i class="fas fa-utensils text-2xl text-red-600"></i>
+                    </div>
+                    <div>
+                        <h1 class="font-display text-2xl font-bold">Bella<span class="text-red-500">Vista</span></h1>
+                        <p class="text-xs text-gray-300">Since 1995</p>
+                    </div>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden lg:flex space-x-8 items-center">
+                    <a href="#home" class="hover:text-red-400 transition">Home</a>
+                    <a href="#about" class="hover:text-red-400 transition">About</a>
+                    <a href="#menu" class="hover:text-red-400 transition">Menu</a>
+                    <a href="#reservation" class="hover:text-red-400 transition">Reservations</a>
+                    <a href="#contact" class="hover:text-red-400 transition">Contact</a>
+                    <button id="orderOnlineBtn" class="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-full font-medium transition">
+                        Order Online
+                    </button>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <div class="lg:hidden flex items-center space-x-4">
+                    <button id="cartBtn" class="relative">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                        <span id="cartCount" class="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                    </button>
+                    <button id="mobileMenuBtn">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </nav>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="lg:hidden bg-black/95 absolute w-full z-50 hidden">
+            <div class="flex flex-col space-y-6 p-8">
+                <a href="#home" class="text-white hover:text-red-400 text-lg">Home</a>
+                <a href="#about" class="text-white hover:text-red-400 text-lg">About</a>
+                <a href="#menu" class="text-white hover:text-red-400 text-lg">Menu</a>
+                <a href="#reservation" class="text-white hover:text-red-400 text-lg">Reservations</a>
+                <a href="#contact" class="text-white hover:text-red-400 text-lg">Contact</a>
+                <button class="bg-red-600 hover:bg-red-700 text-white py-3 rounded-full font-medium mt-4">
+                    Order Online
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-bg text-white py-24 lg:py-32">
+        <div class="container mx-auto px-4">
+            <div class="max-w-3xl animate-fade-in">
+                <div class="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 mb-6">
+                    <i class="fas fa-star text-yellow-400"></i>
+                    <span>Rated 4.9/5 by 1200+ customers</span>
+                </div>
+                <h1 class="font-display text-5xl lg:text-7xl font-bold mb-6">Authentic Italian <span class="text-red-400">Cuisine</span></h1>
+                <p class="text-xl lg:text-2xl mb-8 text-gray-200">Experience the taste of Italy with our handmade pasta, wood-fired pizzas, and family recipes passed down for generations.</p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
+                    <a href="#reservation" class="bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-8 rounded-full text-lg transition transform hover:scale-105 text-center">
+                        Book a Table
+                    </a>
+                    <a href="#menu" class="bg-transparent border-2 border-white hover:bg-white/20 text-white font-bold py-4 px-8 rounded-full text-lg transition text-center">
+                        View Menu
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 lg:py-24 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col lg:flex-row items-center">
+                <div class="lg:w-1/2 mb-12 lg:mb-0 lg:pr-12">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80" 
+                             alt="Chef preparing pasta" 
+                             class="rounded-2xl shadow-2xl">
+                        <div class="absolute -bottom-6 -right-6 bg-red-600 text-white p-6 rounded-2xl shadow-xl">
+                            <p class="text-4xl font-bold">25+</p>
+                            <p class="text-lg">Years Experience</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:w-1/2 lg:pl-12">
+                    <span class="text-red-600 font-bold uppercase tracking-wider">Our Story</span>
+                    <h2 class="font-display text-4xl lg:text-5xl font-bold mt-2 mb-6">A Family Tradition Since <span class="text-red-600">1995</span></h2>
+                    <p class="text-gray-600 text-lg mb-6">Founded by the Rossi family from Naples, Bella Vista brings authentic Italian flavors to your table. Our recipes have been passed down through three generations.</p>
+                    <p class="text-gray-600 mb-8">We source the finest ingredients imported directly from Italy, combined with locally-sourced organic produce to create dishes that honor tradition while embracing innovation.</p>
+                    
+                    <div class="grid grid-cols-2 gap-6 mb-8">
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-leaf text-red-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg">Fresh Ingredients</h4>
+                                <p class="text-gray-500">Locally sourced</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-wine-bottle text-red-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg">Italian Wine Cellar</h4>
+                                <p class="text-gray-500">200+ selections</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <a href="#contact" class="inline-flex items-center text-red-600 font-bold text-lg hover:text-red-700">
+                        Meet Our Chefs
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="py-16 lg:py-24 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <span class="text-red-600 font-bold uppercase tracking-wider">Our Specialties</span>
+                <h2 class="font-display text-4xl lg:text-5xl font-bold mt-2 mb-4">Featured Menu</h2>
+                <p class="text-gray-600 text-lg max-w-2xl mx-auto">From our wood-fired oven to your table, each dish tells a story of Italian culinary heritage.</p>
+            </div>
+            
+            <!-- Menu Tabs -->
+            <div class="flex flex-wrap justify-center gap-4 mb-12">
+                <button class="menu-tab px-6 py-3 rounded-full bg-white shadow-md font-medium hover:bg-red-600 hover:text-white transition" data-category="all">
+                    All Items
+                </button>
+                <button class="menu-tab px-6 py-3 rounded-full bg-white shadow-md font-medium hover:bg-red-600 hover:text-white transition" data-category="appetizers">
+                    Appetizers
+                </button>
+                <button class="menu-tab px-6 py-3 rounded-full bg-white shadow-md font-medium hover:bg-red-600 hover:text-white transition" data-category="pasta">
+                    Pasta
+                </button>
+                <button class="menu-tab px-6 py-3 rounded-full bg-white shadow-md font-medium hover:bg-red-600 hover:text-white transition" data-category="pizza">
+                    Pizza
+                </button>
+                <button class="menu-tab px-6 py-3 rounded-full bg-white shadow-md font-medium hover:bg-red-600 hover:text-white transition" data-category="desserts">
+                    Desserts
+                </button>
+            </div>
+            
+            <!-- Menu Items Grid -->
+            <div id="menuItems" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Menu items will be loaded dynamically -->
+            </div>
+            
+            <!-- View Full Menu Button -->
+            <div class="text-center mt-12">
+                <button class="bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-10 rounded-full text-lg transition transform hover:scale-105">
+                    View Full Menu <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Special Dish Section -->
+    <section class="menu-category-bg text-white py-20">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center">
+                <div class="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 mb-6">
+                    <i class="fas fa-fire text-red-400"></i>
+                    <span>Chef's Special</span>
+                </div>
+                <h2 class="font-display text-4xl lg:text-5xl font-bold mb-6">Truffle <span class="text-red-400">Mushroom</span> Risotto</h2>
+                <p class="text-xl mb-8 text-gray-200">Creamy Arborio rice with wild mushrooms, white truffle oil, and Parmigiano-Reggiano. Served with garlic bread.</p>
+                <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-8">
+                    <div class="text-center">
+                        <p class="text-4xl font-bold">$24<span class="text-2xl">.99</span></p>
+                        <p class="text-gray-300">Per serving</p>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <div class="rating-star">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span>4.7/5 (320 reviews)</span>
+                    </div>
+                    <button class="add-to-cart bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full transition" data-item="Truffle Mushroom Risotto" data-price="24.99">
+                        Add to Order
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-16 lg:py-24 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <span class="text-red-600 font-bold uppercase tracking-wider">Testimonials</span>
+                <h2 class="font-display text-4xl lg:text-5xl font-bold mt-2 mb-4">What Our Guests Say</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-gray-50 rounded-2xl p-8 card-hover">
+                    <div class="flex mb-6">
+                        <div class="rating-star">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic mb-6">"The best Italian food I've had outside of Italy! The carbonara is absolutely perfect. We'll definitely be back!"</p>
+                    <div class="flex items-center">
+                        <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Customer" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold">Jessica Miller</h4>
+                            <p class="text-gray-500">Food Critic</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="bg-gray-50 rounded-2xl p-8 card-hover">
+                    <div class="flex mb-6">
+                        <div class="rating-star">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic mb-6">"Our go-to spot for special occasions. The ambiance, service, and food are consistently exceptional."</p>
+                    <div class="flex items-center">
+                        <img src="https://randomuser.me/api/portraits/men/54.jpg" alt="Customer" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold">Robert Chen</h4>
+                            <p class="text-gray-500">Regular Guest</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="bg-gray-50 rounded-2xl p-8 card-hover">
+                    <div class="flex mb-6">
+                        <div class="rating-star">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic mb-6">"The wine pairing suggestion was spot on! The staff's knowledge of Italian cuisine is impressive."</p>
+                    <div class="flex items-center">
+                        <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Customer" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-bold">Maria Rodriguez</h4>
+                            <p class="text-gray-500">Wine Enthusiast</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reservation Section -->
+    <section id="reservation" class="reservation-bg text-white py-16 lg:py-24">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-12">
+                    <span class="text-red-400 font-bold uppercase tracking-wider">Reserve a Table</span>
+                    <h2 class="font-display text-4xl lg:text-5xl font-bold mt-2 mb-4">Book Your Experience</h2>
+                    <p class="text-xl text-gray-200">Secure your table for a memorable dining experience.</p>
+                </div>
+                
+                <form id="reservationForm" class="bg-white/10 backdrop-blur-sm rounded-2xl p-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <label class="block text-white mb-2">Full Name</label>
+                            <input type="text" class="w-full bg-white/20 border border-white/30 rounded-lg py-3 px-4 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="John Smith" required>
+                        </div>
+                        <div>
+                            <label class="block text-white mb-2">Email Address</label>
+                            <input type="email" class="w-full bg-white/20 border border-white/30 rounded-lg py-3 px-4 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="john@example.com" required>
+                        </div>
+                        <div>
+                            <label class="block text-white mb-2">Phone Number</label>
+                            <input type="tel" class="w-full bg-white/20 border border-white/30 rounded-lg py-3 px-4 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="(123) 456-7890" required>
+                        </div>
+                        <div>
+                            <label class="block text-white mb-2">Number of Guests</label>
+                            <select class="w-full bg-white/20 border border-white/30 rounded-lg py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-red-500">
+                                <option value="1">1 Person</option>
+                                <option value="2" selected>2 People</option>
+                                <option value="3">3 People</option>
+                                <option value="4">4 People</option>
+                                <option value="5">5 People</option>
+                                <option value="6">6 People</option>
+                                <option value="7+">7+ People</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-white mb-2">Date</label>
+                            <input type="date" class="w-full bg-white/20 border border-white/30 rounded-lg py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-red-500" required>
+                        </div>
+                        <div>
+                            <label class="block text-white mb-2">Time</label>
+                            <select class="w-full bg-white/20 border border-white/30 rounded-lg py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-red-500">
+                                <option value="17:00">5:00 PM</option>
+                                <option value="17:30">5:30 PM</option>
+                                <option value="18:00">6:00 PM</option>
+                                <option value="18:30">6:30 PM</option>
+                                <option value="19:00">7:00 PM</option>
+                                <option value="19:30">7:30 PM</option>
+                                <option value="20:00">8:00 PM</option>
+                                <option value="20:30">8:30 PM</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8">
+                        <label class="block text-white mb-2">Special Requests (Optional)</label>
+                        <textarea class="w-full bg-white/20 border border-white/30 rounded-lg py-3 px-4 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500" rows="4" placeholder="Allergies, celebrations, etc."></textarea>
+                    </div>
+                    
+                    <div class="mt-10 text-center">
+                        <button type="submit" class="bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-12 rounded-full text-lg transition transform hover:scale-105">
+                            Book Now
+                        </button>
+                        <p class="text-gray-300 mt-4">We'll confirm your reservation within 2 hours.</p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 lg:py-24 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div>
+                    <span class="text-red-600 font-bold uppercase tracking-wider">Contact Us</span>
+                    <h2 class="font-display text-4xl lg:text-5xl font-bold mt-2 mb-6">Visit Us Today</h2>
+                    <p class="text-gray-600 text-lg mb-8">We'd love to welcome you to our restaurant. Here's how you can find us and get in touch.</p>
+                    
+                    <div class="space-y-8">
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mr-6">
+                                <i class="fas fa-map-marker-alt text-red-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-xl mb-2">Our Location</h4>
+                                <p class="text-gray-600">123 Little Italy Street<br>New York, NY 10013</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mr-6">
+                                <i class="fas fa-clock text-red-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-xl mb-2">Opening Hours</h4>
+                                <p class="text-gray-600">
+                                    <span class="font-medium">Mon-Thu:</span> 11:00 AM - 10:00 PM<br>
+                                    <span class="font-medium">Fri-Sat:</span> 11:00 AM - 11:00 PM<br>
+                                    <span class="font-medium">Sunday:</span> 12:00 PM - 9:00 PM
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mr-6">
+                                <i class="fas fa-phone text-red-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-xl mb-2">Contact Info</h4>
+                                <p class="text-gray-600">
+                                    <span class="font-medium">Phone:</span> (212) 555-1234<br>
+                                    <span class="font-medium">Email:</span> info@bellavista.com
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <div class="bg-gray-50 rounded-2xl p-8 h-full">
+                        <h3 class="text-2xl font-bold mb-6">Send us a Message</h3>
+                        <form id="contactForm">
+                            <div class="mb-6">
+                                <label class="block text-gray-700 mb-2">Your Name</label>
+                                <input type="text" class="w-full bg-white border border-gray-300 rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-red-500" required>
+                            </div>
+                            <div class="mb-6">
+                                <label class="block text-gray-700 mb-2">Your Email</label>
+                                <input type="email" class="w-full bg-white border border-gray-300 rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-red-500" required>
+                            </div>
+                            <div class="mb-6">
+                                <label class="block text-gray-700 mb-2">Subject</label>
+                                <input type="text" class="w-full bg-white border border-gray-300 rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-red-500" required>
+                            </div>
+                            <div class="mb-8">
+                                <label class="block text-gray-700 mb-2">Your Message</label>
+                                <textarea class="w-full bg-white border border-gray-300 rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-red-500" rows="5" required></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-4 rounded-full text-lg transition">
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-3 mb-6">
+                        <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center">
+                            <i class="fas fa-utensils text-xl text-red-600"></i>
+                        </div>
+                        <div>
+                            <h2 class="font-display text-2xl font-bold">Bella<span class="text-red-500">Vista</span></h2>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 mb-6">Authentic Italian cuisine served with passion since 1995.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-tripadvisor"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-6">Quick Links</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#home" class="text-gray-400 hover:text-white">Home</a></li>
+                        <li><a href="#menu" class="text-gray-400 hover:text-white">Menu</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-white">About Us</a></li>
+                        <li><a href="#reservation" class="text-gray-400 hover:text-white">Reservations</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-white">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-6">Opening Hours</h3>
+                    <ul class="space-y-3 text-gray-400">
+                        <li class="flex justify-between">
+                            <span>Mon - Thu</span>
+                            <span>11 AM - 10 PM</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span>Fri - Sat</span>
+                            <span>11 AM - 11 PM</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span>Sunday</span>
+                            <span>12 PM - 9 PM</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-6">Newsletter</h3>
+                    <p class="text-gray-400 mb-4">Subscribe for updates and special offers.</p>
+                    <div class="flex">
+                        <input type="email" placeholder="Your email" class="flex-grow bg-gray-800 text-white py-3 px-4 rounded-l-lg focus:outline-none">
+                        <button class="bg-red-600 hover:bg-red-700 py-3 px-4 rounded-r-lg">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                    <p class="text-gray-400 text-sm mt-4">We respect your privacy. Unsubscribe at any time.</p>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
+                <p>&copy; 2023 Bella Vista Restaurant. All rights reserved.</p>
+                <p class="mt-2">Made with <i class="fas fa-heart text-red-500"></i> for food lovers everywhere.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Modal -->
+    <div id="cartModal" class="fixed inset-0 bg-black/70 z-50 hidden items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-auto">
+            <div class="p-6 border-b flex justify-between items-center">
+                <h3 class="text-2xl font-bold">Your Order</h3>
+                <button id="closeCartBtn" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-2xl"></i>
+                </button>
+            </div>
+            
+            <div class="p-6">
+                <div id="cartItems" class="mb-6">
+                    <p id="emptyCartMessage" class="text-gray-500 text-center py-8">Your cart is empty</p>
+                </div>
+                
+                <div class="border-t pt-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <span class="text-xl font-bold">Total:</span>
+                        <span id="cartTotal" class="text-2xl font-bold text-red-600">$0.00</span>
+                    </div>
+                    
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                        <button id="checkoutBtn" class="flex-1 bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-lg transition">
+                            Proceed to Checkout
+                        </button>
+                        <button id="clearCartBtn" class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-3 px-4 rounded-lg transition">
+                            Clear Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Restaurant Menu Data
+        const menuItems = [
+            { 
+                id: 1, 
+                name: "Bruschetta Classica", 
+                description: "Toasted bread topped with tomatoes, garlic, fresh basil, and olive oil", 
+                price: 12.99, 
+                category: "appetizers", 
+                image: "https://images.unsplash.com/photo-1572695157366-5e585ab2b69f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
+            },
+            { 
+                id: 2, 
+                name: "Calamari Fritti", 
+                description: "Crispy fried squid served with lemon aioli and marinara sauce", 
+                price: 16.99, 
+                category: "appetizers", 
+                image: "https://images.unsplash.com/photo-1563379091339-03246963d9d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
+            },
+            { 
+                id: 3, 
+                name: "Spaghetti Carbonara", 
+                description: "Classic Roman pasta with eggs, pecorino cheese, pancetta, and black pepper", 
+                price: 22.99, 
+                category: "pasta", 
+                image: "https://images.unsplash.com/photo-1608756687911-aa1590d1ef82?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
+            },
+            { 
+                id: 4, 
+                name: "Lasagna Bolognese", 
+                description: "Layers of pasta, beef ragu, béchamel sauce, and Parmigiano-Reggiano", 
+                price: 24.99, 
+                category: "pasta", 
+                image: "https://images.unsplash.com/photo-1621996346565-e3dbc353d2e5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
+            },
+            { 
+                id: 5, 
+                name: "Margherita Pizza", 
+                description: "Wood-fired pizza with tomato sauce, mozzarella, fresh basil, and olive oil", 
+                price: 18.99, 
+                category: "pizza", 
+                image: "https://images.unsplash.com/photo-1604068549290-dea0e4a305ca?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
+            },
+            { 
+                id: 6, 
+                name: "Quattro Formaggi", 
+                description: "Four cheese pizza with mozzarella, gorgonzola, fontina, and parmesan", 
+                price: 21.99, 
+                category: "pizza", 
+                image: "https://images.unsplash.com/photo-1541745537411-b8046dc6d66c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
+            },
+            { 
+                id: 7, 
+                name: "Tiramisu", 
+                description: "Classic Italian dessert with coffee-soaked ladyfingers and mascarpone cream", 
+                price: 10.99, 
+                category: "desserts", 
+                image: "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
+            },
+            { 
+                id: 8, 
+                name: "Panna Cotta", 
+                description: "Vanilla cream custard with berry compote and mint garnish", 
+                price: 9.99, 
+                category: "desserts", 
+                image: "https://images.unsplash.com/photo-1555507036-ab794f27d2e9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
+            },
+            { 
+                id: 9, 
+                name: "Osso Buco", 
+                description: "Braised veal shanks with gremolata, served with saffron risotto", 
+                price: 32.99, 
+                category: "mains", 
+                image: "https://images.unsplash.com/photo-1600891964092-4316c288032e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
+            }
+        ];
+
+        // Cart functionality
+        let cart = JSON.parse(localStorage.getItem('restaurantCart')) || [];
+        
+        // Initialize the website
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load menu items
+            loadMenuItems('all');
+            
+            // Initialize cart display
+            updateCartDisplay();
+            
+            // Set up event listeners
+            setupEventListeners();
+            
+            // Set sticky nav behavior
+            setupStickyNav();
+        });
+        
+        // Load menu items based on category
+        function loadMenuItems(category) {
+            const menuContainer = document.getElementById('menuItems');
+            menuContainer.innerHTML = '';
+            
+            const filteredItems = category === 'all' 
+                ? menuItems 
+                : menuItems.filter(item => item.category === category);
+            
+            if (filteredItems.length === 0) {
+                menuContainer.innerHTML = '<p class="text-center text-gray-500 col-span-3 py-12">No items in this category yet.</p>';
+                return;
+            }
+            
+            filteredItems.forEach(item => {
+                const menuItem = document.createElement('div');
+                menuItem.className = 'bg-white rounded-2xl shadow-lg overflow-hidden card-hover';
+                menuItem.innerHTML = `
+                    <div class="relative">
+                        <img src="${item.image}" alt="${item.name}" class="food-img">
+                        <div class="absolute top-4 right-4 bg-red-600 text-white text-sm font-bold px-3 py-1 rounded-full">
+                            $${item.price.toFixed(2)}
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="text-xl font-bold">${item.name}</h3>
+                            <span class="text-red-600 font-bold">$${item.price.toFixed(2)}</span>
+                        </div>
+                        <p class="text-gray-600 mb-6">${item.description}</p>
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center space-x-1 text-yellow-500">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <button class="add-to-cart bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-6 rounded-full transition" 
+                                    data-id="${item.id}" data-name="${item.name}" data-price="${item.price}">
+                                Add to Order
+                            </button>
+                        </div>
+                    </div>
+                `;
+                menuContainer.appendChild(menuItem);
+            });
+            
+            // Re-attach event listeners to new buttons
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', addToCart);
+            });
+        }
+        
+        // Set up all event listeners
+        function setupEventListeners() {
+            // Mobile menu toggle
+            document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+                document.getElementById('mobileMenu').classList.toggle('hidden');
+            });
+            
+            // Close mobile menu when clicking a link
+            document.querySelectorAll('#mobileMenu a').forEach(link => {
+                link.addEventListener('click', function() {
+                    document.getElementById('mobileMenu').classList.add('hidden');
+                });
+            });
+            
+            // Menu tab switching
+            document.querySelectorAll('.menu-tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Update active tab
+                    document.querySelectorAll('.menu-tab').forEach(t => {
+                        t.classList.remove('active', 'bg-red-600', 'text-white');
+                        t.classList.add('bg-white', 'hover:bg-red-600', 'hover:text-white');
+                    });
+                    
+                    this.classList.add('active', 'bg-red-600', 'text-white');
+                    this.classList.remove('hover:bg-red-600', 'hover:text-white');
+                    
+                    // Load items for selected category
+                    const category = this.getAttribute('data-category');
+                    loadMenuItems(category);
+                });
+            });
+            
+            // Cart functionality
+            document.getElementById('cartBtn').addEventListener('click', openCartModal);
+            document.getElementById('closeCartBtn').addEventListener('click', closeCartModal);
+            document.getElementById('clearCartBtn').addEventListener('click', clearCart);
+            document.getElementById('checkoutBtn').addEventListener('click', checkout);
+            
+            // Add to cart buttons (special dish)
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', addToCart);
+            });
+            
+            // Form submissions
+            document.getElementById('reservationForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Thank you for your reservation! We will confirm via email shortly.');
+                this.reset();
+            });
+            
+            document.getElementById('contactForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Thank you for your message! We will get back to you soon.');
+                this.reset();
+            });
+            
+            // Order online button
+            document.getElementById('orderOnlineBtn').addEventListener('click', function() {
+                alert('Redirecting to online ordering system...');
+                // In a real app, this would redirect to an ordering platform
+            });
+            
+            // Close cart modal when clicking outside
+            document.getElementById('cartModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeCartModal();
+                }
+            });
+        }
+        
+        // Cart functions
+        function addToCart(e) {
+            const button = e.target;
+            const id = button.getAttribute('data-id') || 0;
+            const name = button.getAttribute('data-name');
+            const price = parseFloat(button.getAttribute('data-price'));
+            
+            // Check if item already in cart
+            const existingItem = cart.find(item => item.id == id && item.name === name);
+            
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({
+                    id: id,
+                    name: name,
+                    price: price,
+                    quantity: 1
+                });
+            }
+            
+            // Update cart and save
+            updateCartDisplay();
+            saveCart();
+            
+            // Show feedback
+            const originalText = button.innerHTML;
+            button.innerHTML = '<i class="fas fa-check mr-2"></i> Added!';
+            button.classList.add('bg-green-600', 'hover:bg-green-700');
+            
+            setTimeout(() => {
+                button.innerHTML = originalText;
+                button.classList.remove('bg-green-600', 'hover:bg-green-700');
+                button.classList.add('bg-red-600', 'hover:bg-red-700');
+            }, 1500);
+            
+            // Animate cart icon
+            document.getElementById('cartCount').classList.add('floating');
+            setTimeout(() => {
+                document.getElementById('cartCount').classList.remove('floating');
+            }, 1000);
+        }
+        
+        function updateCartDisplay() {
+            const cartCount = document.getElementById('cartCount');
+            const cartItemsContainer = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+            
+            // Update cart count
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.textContent = totalItems;
+            
+            // Update cart items display
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p id="emptyCartMessage" class="text-gray-500 text-center py-8">Your cart is empty</p>';
+                cartTotal.textContent = '$0.00';
+                return;
+            }
+            
+            // Clear and rebuild cart items
+            cartItemsContainer.innerHTML = '';
+            let total = 0;
+            
+            cart.forEach((item, index) => {
+                total += item.price * item.quantity;
+                
+                const cartItem = document.createElement('div');
+                cartItem.className = 'flex justify-between items-center border-b border-gray-200 py-4';
+                cartItem.innerHTML = `
+                    <div class="flex-1">
+                        <h4 class="font-bold">${item.name}</h4>
+                        <p class="text-gray-600 text-sm">$${item.price.toFixed(2)} each</p>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="flex items-center mr-6">
+                            <button class="decrease-quantity text-gray-500 hover:text-red-600 mr-2" data-index="${index}">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <span class="font-bold mx-2">${item.quantity}</span>
+                            <button class="increase-quantity text-gray-500 hover:text-red-600 ml-2" data-index="${index}">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                        <div class="text-right">
+                            <p class="font-bold">$${(item.price * item.quantity).toFixed(2)}</p>
+                            <button class="remove-item text-red-500 hover:text-red-700 text-sm mt-1" data-index="${index}">
+                                Remove
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                cartItemsContainer.appendChild(cartItem);
+            });
+            
+            // Update total
+            cartTotal.textContent = `$${total.toFixed(2)}`;
+            
+            // Add event listeners to cart buttons
+            document.querySelectorAll('.decrease-quantity').forEach(button => {
+                button.addEventListener('click', function() {
+                    const index = parseInt(this.getAttribute('data-index'));
+                    if (cart[index].quantity > 1) {
+                        cart[index].quantity--;
+                    } else {
+                        cart.splice(index, 1);
+                    }
+                    saveCart();
+                    updateCartDisplay();
+                });
+            });
+            
+            document.querySelectorAll('.increase-quantity').forEach(button => {
+                button.addEventListener('click', function() {
+                    const index = parseInt(this.getAttribute('data-index'));
+                    cart[index].quantity++;
+                    saveCart();
+                    updateCartDisplay();
+                });
+            });
+            
+            document.querySelectorAll('.remove-item').forEach(button => {
+                button.addEventListener('click', function() {
+                    const index = parseInt(this.getAttribute('data-index'));
+                    cart.splice(index, 1);
+                    saveCart();
+                    updateCartDisplay();
+                });
+            });
+        }
+        
+        function saveCart() {
+            localStorage.setItem('restaurantCart', JSON.stringify(cart));
+        }
+        
+        function openCartModal() {
+            document.getElementById('cartModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeCartModal() {
+            document.getElementById('cartModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+        
+        function clearCart() {
+            if (cart.length === 0) return;
+            
+            if (confirm('Are you sure you want to clear your cart?')) {
+                cart = [];
+                saveCart();
+                updateCartDisplay();
+            }
+        }
+        
+        function checkout() {
+            if (cart.length === 0) {
+                alert('Your cart is empty. Please add items before checking out.');
+                return;
+            }
+            
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            alert(`Thank you for your order! Total: $${total.toFixed(2)}\n\nThis is a demo website, so no actual order was placed.`);
+            
+            cart = [];
+            saveCart();
+            updateCartDisplay();
+            closeCartModal();
+        }
+        
+        // Sticky navigation
+        function setupStickyNav() {
+            const nav = document.querySelector('.sticky-nav');
+            
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 100) {
+                    nav.classList.add('scrolled');
+                    nav.classList.remove('bg-transparent');
+                } else {
+                    nav.classList.remove('scrolled');
+                    nav.classList.add('bg-transparent');
+                }
+            });
+        }
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
